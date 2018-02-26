@@ -1,0 +1,18 @@
+{
+  "name": "runtime-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mfs": "^0.1.1",
+    "raw-loader": "^0.5.1",
+    "vue-loader": "^14.1.1",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^4.0.0"
+  }
+}
