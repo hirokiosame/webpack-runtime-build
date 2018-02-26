@@ -1,13 +1,13 @@
 {
-  "name": "runtime-webpack",
+  "name": "webpack-runtime-build",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "RuntimeWebpack.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Hiroki Osame",
+  "license": "MIT",
   "dependencies": {
     "mfs": "^0.1.1",
     "raw-loader": "^0.5.1",
