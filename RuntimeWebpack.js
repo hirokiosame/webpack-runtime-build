@@ -26,10 +26,10 @@ class RuntimeWebpack {
 					result = fn.apply(this.mfs, args);
 				} catch(e) {
 					const [reqPath] = args;
-					// const hasLoader = this.loaders.find(loaderConfig => reqPath.match(path.dirname(loaderConfig.loader)));
-					const hasLoader = reqPath.startsWith(path.resolve('node_modules'));
+					const inCwd = reqPath.startsWith(path.resolve('node_modules'));
+					const inRelDir = reqPath.startsWith(path.resolve(__dirname, 'node_modules'));
 
-					if (hasLoader) {
+					if (inCwd || inRelDir) {
 						result = fs[method].apply(fs, args);
 					} else {
 						throw e;
@@ -89,7 +89,7 @@ class RuntimeWebpack {
 
 	_wpConfig() {
 		const webpackConfig = {
-			mode: 'production',
+			mode: 'development',
 			context: '/src',
 			entry: this.entry || './index.js',
 			output: {
@@ -98,10 +98,11 @@ class RuntimeWebpack {
 			},
 			devtool: 'inline-source-map',
 			resolve: {
-				modules: [ path.resolve(process.cwd(), 'node_modules') ],
+				// symlinks: false,
+				modules: [path.resolve('node_modules')],
 			},
 			resolveLoader: {
-				modules: [ path.resolve(process.cwd(), 'node_modules') ],
+				modules: [path.resolve('node_modules')],
 			},
 			module: {
 				rules: [
