@@ -21,33 +21,21 @@ class RuntimeWebpack {
 			const fn = this.mfs[method];
 
 			this.mfs[method] = (...args) => {
-
 				let result;
 				try {
 					result = fn.apply(this.mfs, args);
 				} catch(e) {
-					// console.log(e);
 					const [reqPath] = args;
+					// const hasLoader = this.loaders.find(loaderConfig => reqPath.match(path.dirname(loaderConfig.loader)));
+					const hasLoader = reqPath.startsWith(path.resolve('node_modules'));
 
-					// console.group('reqPath:', reqPath);
-					const loader = this.loaders.find(loaderConfig => {
-						const dirname = path.dirname(loaderConfig.loader);
-
-						// console.log(dirname)
-						return reqPath.match(dirname);
-					});
-					// console.groupEnd();
-					if (loader) {
-					// if (reqPath.startsWith(path.resolve('node_modules'))) {
-					// 	// console.log(reqPath);
-					// 	// console.log(`fs.${method}()`, arguments);
+					if (hasLoader) {
 						result = fs[method].apply(fs, args);
 					} else {
 						throw e;
 					}
 				}
 
-				// console.log(`${method}():`, arguments, result);
 				return result;
 			};
 		});
@@ -101,7 +89,7 @@ class RuntimeWebpack {
 
 	_wpConfig() {
 		const webpackConfig = {
-			mode: 'development',
+			mode: 'production',
 			context: '/src',
 			entry: this.entry || './index.js',
 			output: {
