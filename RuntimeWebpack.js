@@ -5,9 +5,10 @@ const fs = require('fs');
 
 class RuntimeWebpack {
 
-	constructor(files, entry) {
+	constructor({ files, config }, entry) {
 		this._setupMfs();
 		files.forEach(file => this.addFile(path.join('/src', file.name), file.content));
+		this.configCb = config;
 		this.entry = entry;
 	}
 
@@ -109,6 +110,7 @@ class RuntimeWebpack {
 					...this.loaders,
 				],
 			},
+			plugins: [],
 		};
 
 		return webpackConfig;
@@ -117,6 +119,8 @@ class RuntimeWebpack {
 	async build(entry) {
 
 		const config = this._wpConfig();
+
+		this.configCb(config);
 
 		await this._webpack(config);
 
