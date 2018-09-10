@@ -120,7 +120,9 @@ class RuntimeWebpack {
 
 		const config = this._wpConfig();
 
-		this.configCb(config);
+		if (typeof this.configCb === 'function') {
+			this.configCb(config);
+		}
 
 		await this._webpack(config);
 
