@@ -2,7 +2,7 @@
   "name": "webpack-runtime-build",
   "version": "1.0.0",
   "description": "",
-  "main": "RuntimeWebpack.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "mfs": "^0.1.1",
-    "webpack": "^4.0.0"
+    "webpack": "^4.20.2"
   }
 }
