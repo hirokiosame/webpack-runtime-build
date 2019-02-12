@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "mfs": "^0.1.1",
-    "webpack": "^4.20.2"
+    "webpack": "^4.29.3"
   }
 }

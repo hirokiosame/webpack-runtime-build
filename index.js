@@ -58,13 +58,12 @@ class RuntimeWebpack {
 			const compiler = webpack(config);
 
 			compiler.inputFileSystem = this.mfs;
-			compiler.resolvers.normal.fileSystem = compiler.inputFileSystem;
-			compiler.resolvers.context.fileSystem = compiler.inputFileSystem;
+			compiler.resolvers.normal.fileSystem = this.mfs;
+			compiler.resolvers.context.fileSystem = this.mfs;
 
 			compiler.outputFileSystem = this.mfs;
 
 			compiler.run((err, stats) => {
-
 				if (err) {
 					console.error(err.stack || err);
 					if (err.details) {
@@ -73,13 +72,13 @@ class RuntimeWebpack {
 					return;
 				}
 
-				const info = stats.toJson();
-
 				if (stats.hasErrors()) {
+					const info = stats.toJson();
 					return reject(info.errors[0]);
 				}
 
 				if (stats.hasWarnings()) {
+					const info = stats.toJson();
 					console.warn(info.warnings);
 				}
 
@@ -97,7 +96,7 @@ class RuntimeWebpack {
 				filename: '[name].js',
 				path: '/dist',
 			},
-			devtool: 'inline-source-map',
+			// devtool: 'inline-source-map',
 			resolve: {
 				// symlinks: false,
 				modules: [path.resolve('node_modules')],
